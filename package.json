@@ -1,6 +1,6 @@
 {
   "name": "payluk-escrow-inline-checkout",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "TypeScript escrow checkout wrapper with built-in script loader and session creation, ready for React/Next.js",
   "license": "MIT",
   "type": "module",
@@ -34,6 +34,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "tsup",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run clean && npm run build"
   }
 }
