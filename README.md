@@ -29,9 +29,9 @@ async function onPayClick() {
   try {
     await pay({
       paymentToken: '<PAYMENT_TOKEN>',
-      reference: '<ORDER_OR_REFERENCE_ID>',
+      reference: '<REFERENCE_ID>',
       redirectUrl: 'https://your-app.example.com/checkout/complete',
-      logoUrl: 'https://your-cdn.example.com/logo.png', // optional
+      logoUrl: 'https://mediacloud.me/media/W8HU9TK245QF528ZULCFSJXX2SBBLT.jpg', // optional
       brand: 'YourBrand', // optional
       callback: (result) => {
         console.log('Checkout result:', result);
@@ -85,9 +85,9 @@ export function CheckoutButton() {
     try {
       await pay({
         paymentToken: '<PAYMENT_TOKEN>',
-        reference: '<ORDER_OR_REFERENCE_ID>',
+        reference: '<REFERENCE_ID>',
         redirectUrl: 'https://your-app.example.com/checkout/complete',
-        logoUrl: 'https://your-cdn.example.com/logo.png',
+        logoUrl: 'https://mediacloud.me/media/W8HU9TK245QF528ZULCFSJXX2SBBLT.jpg',
         brand: 'YourBrand',
         extra: { theme: 'light' },
         callback: (result) => console.log(result)
