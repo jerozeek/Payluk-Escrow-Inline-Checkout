@@ -33,6 +33,7 @@ async function onPayClick() {
       redirectUrl: 'https://your-app.example.com/checkout/complete',
       logoUrl: 'https://mediacloud.me/media/W8HU9TK245QF528ZULCFSJXX2SBBLT.jpg', // optional
       brand: 'YourBrand', // optional
+      customerId: 'YourBrand', // optional only for merchants using customer vaulting
       callback: (result) => {
         console.log('Checkout result:', result);
       },
@@ -90,6 +91,7 @@ export function CheckoutButton() {
         logoUrl: 'https://mediacloud.me/media/W8HU9TK245QF528ZULCFSJXX2SBBLT.jpg',
         brand: 'YourBrand',
         extra: { theme: 'light' },
+        customerId: 'YourBrand', // optional only for merchants using customer vaulting
         callback: (result) => console.log(result)
       });
     } catch {
@@ -146,6 +148,7 @@ Creates a checkout session via your backend and opens the widget.
 
 **Optional:**
 - `logoUrl?`: `string`
+- `customerId?`: `string` — only for merchants using customer vaulting
 - `brand?`: `string`
 - `callback?`: `(result: unknown) => void`
 - `onClose?`: `() => void`

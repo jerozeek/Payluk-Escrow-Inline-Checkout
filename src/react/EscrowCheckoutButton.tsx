@@ -11,6 +11,7 @@ export interface EscrowCheckoutButtonProps {
     title?: string;
 
     brand?: string;
+    customerId?: string;
     logoUrl?: string;
     callback?: (result: any) => void;
     onClose?: () => void;
@@ -33,7 +34,8 @@ export function EscrowCheckoutButton({
                                          children = 'Pay',
                                          disabled,
                                          className,
-                                         title
+                                         title,
+                                         customerId
                                      }: EscrowCheckoutButtonProps) {
     const { ready, loading, error, pay } = useEscrowCheckout();
 
@@ -46,9 +48,10 @@ export function EscrowCheckoutButton({
             logoUrl,
             callback,
             onClose,
-            extra
+            extra,
+            customerId
         });
-    }, [pay, paymentToken, reference, redirectUrl, brand, logoUrl, callback, onClose, extra]);
+    }, [pay, paymentToken, reference, redirectUrl, brand, logoUrl, callback, onClose, extra, customerId]);
 
     return (
         <button

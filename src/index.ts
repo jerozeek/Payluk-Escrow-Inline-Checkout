@@ -16,6 +16,7 @@ export interface PayInput {
     redirectUrl: string;
     logoUrl?: string;
     brand?: string;
+    customerId?: string;
     /**
      * Extra fields supported by the widget.
      */
@@ -151,6 +152,7 @@ export async function pay(input: PayInput): Promise<void> {
         brand: input.brand,
         callback: input.callback,
         onClose: input.onClose,
+        customerId: input.customerId,
         ...(input.extra ?? {})
     });
 }
