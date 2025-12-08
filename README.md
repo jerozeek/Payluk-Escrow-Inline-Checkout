@@ -1,6 +1,6 @@
 # Escrow Checkout JS/TS SDK
 
-A lightweight client SDK that initializes your checkout configuration, creates a session via your API, and launches the escrow checkout widget. Includes a React hook for easy integration in React apps.
+A lightweight client SDK that initializes your checkout configuration, creates a session, and launches the escrow checkout widget. Includes a React hook for easy integration in React apps.
 
 - Zero manual script tags: the widget script is loaded automatically.
 - Promise-based API.
