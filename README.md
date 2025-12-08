@@ -47,6 +47,71 @@ async function onPayClick() {
 }
 ```
 
+## Inline Usage
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Checkout Demo</title>
+</head>
+
+<body>
+  <h1>Checkout Demo</h1>
+  <!-- HTML -->
+  <script src="https://checkout.payluk.ng/escrow-checkout.min.js"></script>
+  <button id="pay">Pay via Wallet(Business) or Debit Card (Merchant)</button>
+  <script>
+    const PUBLISHABLE_KEY = 'pk_live_f1yCEbpo980rDMWUAMH0Ho0NC7gzkqSr'; // Public Key
+    let navigated = false;
+
+
+    async function openEscrowCheckout() {
+      const baseUrl = window.EscrowCheckout.baseUrl
+      const resp = await fetch(`${baseUrl}/v1/checkout/session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentToken: 'PY_vevIhjtQ3000',
+          reference: "Reference",
+          publicKey: PUBLISHABLE_KEY,
+          redirectUrl: 'http://localhost:63342/payluk-inlinejs/thank-you.html',
+          customerId: '6933b6353e4615c1cabdd1d9' // Optional: For merchant business only
+        }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        return alert(err.message || 'Failed to create session');
+      }
+
+      const { session } = await resp.json();
+
+      // Initialize the widget
+      EscrowCheckout({
+        session,
+        logoUrl: "https://mediacloud.me/media/W8HU9TK245QF528ZULCFSJXX2SBBLT.jpg",
+        brand: "Business Name",
+        publicKey: PUBLISHABLE_KEY,
+        customerId: '6933b6353e4615c1cabdd1d9' // Optional: For merchant business only
+        callback: ({ paymentId }) => {
+          console.log('Payment token received', paymentId);
+          navigated = true;
+          const url = `/payluk-inlinejs/thank-you.html?paymentId=${encodeURIComponent(paymentId)}`;
+          window.location.replace(url);
+        },
+        onClose: function () {
+          console.log('Checkout closed');
+        },
+      });
+    }
+
+    document.getElementById('pay').addEventListener('click', openEscrowCheckout);
+  </script>
+</body>
+
+</html>
+```
+
 ## React Usage
 
 ```tsx
