@@ -246,7 +246,22 @@ import { useEscrowCheckout } from 'payluk-escrow-inline-checkout/react';
 Common issues:
 - **Not initialized:** Ensure `initEscrowCheckout({ publicKey })` is called before `pay(...)`.
 - **Browser-only:** Do not call `pay(...)` on the server.
-- **Network/API errors:** If the session endpoint fails, `pay(...)` will reject with the error message from your backend (if any).
+- **Network/API errors:** If the session endpoint fails, `pay(...)` will reject with an `EscrowCheckoutError` that includes a `code`, optional HTTP `status`, and `details`.
+
+`EscrowCheckoutError` codes:
+- `NOT_INITIALIZED`
+- `BROWSER_ONLY`
+- `INVALID_INPUT`
+- `WIDGET_LOAD`
+- `NETWORK`
+- `SESSION_CREATE`
+- `SESSION_RESPONSE`
+
+You can import the error class if you want stricter checks in TypeScript:
+
+```ts
+import { EscrowCheckoutError } from 'payluk-escrow-inline-checkout';
+```
 
 **Example:**
 
@@ -254,7 +269,12 @@ Common issues:
 try {
   await pay({ /* ... */ });
 } catch (err) {
-  alert((err as Error).message);
+  if (err instanceof EscrowCheckoutError) {
+    console.error(err.code, err.status, err.message);
+    alert(err.message);
+  } else {
+    alert('Checkout failed');
+  }
 }
 ```
 

@@ -37,29 +37,33 @@ export function EscrowCheckoutButton({
                                          title,
                                          customerId
                                      }: EscrowCheckoutButtonProps) {
-    const { ready, loading, error, pay } = useEscrowCheckout();
+    const { loading, error, pay } = useEscrowCheckout();
 
     const handleClick = useCallback(async () => {
-        await pay({
-            paymentToken,
-            reference,
-            redirectUrl,
-            brand,
-            logoUrl,
-            callback,
-            onClose,
-            extra,
-            customerId
-        });
+        try {
+            await pay({
+                paymentToken,
+                reference,
+                redirectUrl,
+                brand,
+                logoUrl,
+                callback,
+                onClose,
+                extra,
+                customerId
+            });
+        } catch {
+            // Error state is already exposed via the hook.
+        }
     }, [pay, paymentToken, reference, redirectUrl, brand, logoUrl, callback, onClose, extra, customerId]);
 
     return (
         <button
             type="button"
             onClick={handleClick}
-            disabled={disabled || loading || !ready /* ready becomes true after first successful load */}
+            disabled={disabled || loading}
             className={className}
-            aria-disabled={disabled || loading || !ready}
+            aria-disabled={disabled || loading}
             title={title ?? (error ? error.message : undefined)}
         >
             {children}
