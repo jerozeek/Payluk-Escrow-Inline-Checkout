@@ -154,6 +154,7 @@ export async function pay(input: PayInput): Promise<void> {
         callback: input.callback,
         onClose: input.onClose,
         customerId: input.customerId,
+        publicKey: CONFIG?.publicKey,
         ...(input.extra ?? {})
     });
 }
