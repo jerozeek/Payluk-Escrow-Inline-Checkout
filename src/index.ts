@@ -114,7 +114,7 @@ async function loadWidget(): Promise<EscrowWidget> {
 async function createSession(input: PayInput): Promise<SessionResponse> {
     assertConfigured(CONFIG);
     const { publicKey } = CONFIG;
-    const apiBaseUrl = 'https://live.payluk.ng';
+    const apiBaseUrl = publicKey.startsWith("pk_live_") ? 'https://live.payluk.ng' : 'https://staging.live.payluk.ng';
 
     const resp = await fetch(`${apiBaseUrl}/v1/checkout/session`, {
         method: 'POST',
