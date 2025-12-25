@@ -123,6 +123,7 @@ async function createSession(input: PayInput): Promise<SessionResponse> {
             paymentToken: input.paymentToken,
             redirectUrl: input.redirectUrl,
             reference: input.reference,
+            customerId: input.customerId,
             publicKey
         })
     });

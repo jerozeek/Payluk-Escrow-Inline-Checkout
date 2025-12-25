@@ -1,6 +1,6 @@
 {
   "name": "payluk-escrow-inline-checkout",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "TypeScript escrow checkout wrapper with built-in script loader and session creation, ready for React/Next.js",
   "license": "MIT",
   "type": "module",
