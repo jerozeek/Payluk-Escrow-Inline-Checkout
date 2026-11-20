@@ -179,7 +179,7 @@
 
   ## Pay with Payluk Button
 
-  A ready-made, branded button (Payluk icon, "Pay with Payluk", lock icon, purple or white theme, loading spinner) in the style of Stripe's payment buttons.
+  A ready-made, branded button (Payluk icon, "Pay with Payluk", purple or white theme, loading spinner) in the style of Stripe's payment buttons.
 
   **React**
 

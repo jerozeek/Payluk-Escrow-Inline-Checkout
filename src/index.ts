@@ -1,15 +1,12 @@
 import {
     checkoutButtonClass,
     injectCheckoutButtonStyles,
-    LOCK_ICON_SVG,
     PAYLUK_ICON_SVG,
     type CheckoutButtonTheme
 } from './button';
 
 export {
     CHECKOUT_BUTTON_CSS,
-    LOCK_ICON_PATH,
-    LOCK_ICON_SVG,
     PAYLUK_ICON_PATH,
     PAYLUK_ICON_SVG,
     checkoutButtonClass,
@@ -305,14 +302,14 @@ export async function pay(input: PayInput): Promise<void> {
 
 export interface MountCheckoutButtonOptions extends PayInput {
     theme?: CheckoutButtonTheme;
-    /** Button text after the Payluk icon and the lock. Default "Pay with Payluk". */
+    /** Button text after the Payluk icon. Default "Pay with Payluk". */
     label?: string;
     /** Called when the session or widget fails. Defaults to console.error. */
     onError?: (error: Error) => void;
 }
 
 /**
- * Renders a "[icon] [lock] Pay with Payluk" button into `target` (an element or a selector) that runs pay(...) on click.
+ * Renders a "[icon] Pay with Payluk" button into `target` (an element or a selector) that runs pay(...) on click.
  * Returns a function that removes the button.
  */
 export function mountCheckoutButton(target: string | HTMLElement, options: MountCheckoutButtonOptions): () => void {
@@ -332,7 +329,7 @@ export function mountCheckoutButton(target: string | HTMLElement, options: Mount
     button.className = checkoutButtonClass(theme);
     const text = document.createElement('span');
     text.textContent = label ?? 'Pay with Payluk';
-    button.innerHTML = PAYLUK_ICON_SVG + LOCK_ICON_SVG; // constant markup, never user input
+    button.innerHTML = PAYLUK_ICON_SVG; // constant markup, never user input
     button.append(text);
 
     button.addEventListener('click', async () => {

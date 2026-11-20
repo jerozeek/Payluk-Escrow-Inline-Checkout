@@ -1,3 +1,3 @@
 export { useEscrowCheckout } from './useEscrowCheckout';
-export { EscrowCheckoutButton, LockIcon, PaylukIcon } from './EscrowCheckoutButton';
+export { EscrowCheckoutButton, PaylukIcon } from './EscrowCheckoutButton';
 export type { EscrowCheckoutButtonProps } from './EscrowCheckoutButton';

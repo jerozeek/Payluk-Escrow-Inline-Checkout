@@ -57,7 +57,8 @@ describe('mountCheckoutButton', () => {
         expect(head.children.filter((c: any) => c.id === 'payluk-btn-style')).toHaveLength(1);
         const [button] = host.children;
         expect(button.className).toBe('payluk-btn payluk-btn--white');
-        expect(button.innerHTML).toMatch(/class="payluk-icon".*class="payluk-lock"/);
+        expect(button.innerHTML).toContain('class="payluk-icon"');
+        expect(button.innerHTML).not.toContain('payluk-lock');
         expect(button.children[0].textContent).toBe('Pay with Payluk');
 
         const first = button.click();

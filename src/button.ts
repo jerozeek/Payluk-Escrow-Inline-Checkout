@@ -9,11 +9,6 @@ export const PAYLUK_ICON_PATH =
 export const PAYLUK_ICON_SVG =
     `<svg class="payluk-icon" viewBox="0 0 34 42" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="${PAYLUK_ICON_PATH}"/></svg>`;
 
-export const LOCK_ICON_PATH = 'M8 11V7a4 4 0 0 1 8 0v4M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2Z';
-
-export const LOCK_ICON_SVG =
-    `<svg class="payluk-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="${LOCK_ICON_PATH}"/></svg>`;
-
 export const CHECKOUT_BUTTON_CSS = `
 .payluk-btn{all:unset;box-sizing:border-box;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:220px;height:44px;padding:0 20px;border-radius:6px;background:#4b0082;color:#fff;font:600 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;letter-spacing:.01em;white-space:nowrap;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,.08),0 2px 6px rgba(75,0,130,.24);transition:background-color .15s,box-shadow .15s,transform .05s;-webkit-tap-highlight-color:transparent}
 .payluk-btn:hover{background:#3b0066}
@@ -24,7 +19,6 @@ export const CHECKOUT_BUTTON_CSS = `
 .payluk-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .payluk-btn svg{display:block;flex:none;width:auto}
 .payluk-btn .payluk-icon{height:20px}
-.payluk-btn .payluk-lock{height:14px;opacity:.85}
 .payluk-btn[aria-busy=true]{cursor:progress;opacity:1}
 .payluk-btn[aria-busy=true]>*{visibility:hidden}
 .payluk-btn[aria-busy=true]::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:payluk-spin .7s linear infinite}

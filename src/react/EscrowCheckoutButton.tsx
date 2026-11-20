@@ -3,7 +3,6 @@ import { useEscrowCheckout } from './useEscrowCheckout';
 import {
     CHECKOUT_BUTTON_CSS,
     checkoutButtonClass,
-    LOCK_ICON_PATH,
     PAYLUK_ICON_PATH,
     type CheckoutButtonTheme
 } from '../button';
@@ -15,9 +14,9 @@ export interface EscrowCheckoutButtonProps {
     paymentToken: string | string[];
     reference: string;
     redirectUrl: string;
-    /** Replaces the whole icon + text + lock content. */
+    /** Replaces the whole icon + text content. */
     children?: React.ReactNode;
-    /** Button text after the Payluk icon and the lock. Default "Pay with Payluk". */
+    /** Button text after the Payluk icon. Default "Pay with Payluk". */
     label?: string;
     /** 'purple' (default) or 'white' for dark backgrounds. */
     theme?: CheckoutButtonTheme;
@@ -37,15 +36,6 @@ export function PaylukIcon() {
     return (
         <svg className="payluk-icon" viewBox="0 0 34 42" fill="currentColor" aria-hidden="true">
             <path d={PAYLUK_ICON_PATH} />
-        </svg>
-    );
-}
-
-export function LockIcon() {
-    return (
-        <svg className="payluk-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
-             strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d={LOCK_ICON_PATH} />
         </svg>
     );
 }
@@ -106,7 +96,6 @@ export function EscrowCheckoutButton({
                 {children ?? (
                     <>
                         <PaylukIcon />
-                        <LockIcon />
                         <span>{label}</span>
                     </>
                 )}
