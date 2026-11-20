@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-11-20
+
+### Added
+- "Pay with Payluk" branded button: Payluk icon, lock icon, `purple` / `white` themes, loading spinner.
+- `mountCheckoutButton(target, options)` for non-React pages; `PaylukIcon`, `LockIcon`, `CHECKOUT_BUTTON_CSS`, `injectCheckoutButtonStyles` exports.
+- `EscrowCheckoutButton` props `theme` and `label`.
+
+### Changed
+- `EscrowCheckoutButton` now renders the branded button by default (was an unstyled "Pay" button). `className` is added on top of the `.payluk-btn` styles; `children` still replaces the content.
+
 ## [0.3.0] - 2026-03-31
 
 ### Added

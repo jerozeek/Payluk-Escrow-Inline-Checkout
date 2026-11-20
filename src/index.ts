@@ -1,3 +1,22 @@
+import {
+    checkoutButtonClass,
+    injectCheckoutButtonStyles,
+    LOCK_ICON_SVG,
+    PAYLUK_ICON_SVG,
+    type CheckoutButtonTheme
+} from './button';
+
+export {
+    CHECKOUT_BUTTON_CSS,
+    LOCK_ICON_PATH,
+    LOCK_ICON_SVG,
+    PAYLUK_ICON_PATH,
+    PAYLUK_ICON_SVG,
+    checkoutButtonClass,
+    injectCheckoutButtonStyles,
+    type CheckoutButtonTheme
+} from './button';
+
 export type EscrowWidget = (options: Record<string, unknown>) => void;
 
 export type EscrowCheckoutErrorCode =
@@ -282,4 +301,52 @@ export async function pay(input: PayInput): Promise<void> {
         publicKey: CONFIG.publicKey,
         ...(input.extra ?? {})
     });
+}
+
+export interface MountCheckoutButtonOptions extends PayInput {
+    theme?: CheckoutButtonTheme;
+    /** Button text after the Payluk icon and the lock. Default "Pay with Payluk". */
+    label?: string;
+    /** Called when the session or widget fails. Defaults to console.error. */
+    onError?: (error: Error) => void;
+}
+
+/**
+ * Renders a "[icon] [lock] Pay with Payluk" button into `target` (an element or a selector) that runs pay(...) on click.
+ * Returns a function that removes the button.
+ */
+export function mountCheckoutButton(target: string | HTMLElement, options: MountCheckoutButtonOptions): () => void {
+    if (typeof document === 'undefined') {
+        throw new EscrowCheckoutError('mountCheckoutButton(...) can only run in the browser.', 'BROWSER_ONLY');
+    }
+    const host = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
+    if (!host) {
+        throw new EscrowCheckoutError(`mountCheckoutButton(...): no element matches "${String(target)}".`, 'INVALID_INPUT');
+    }
+
+    const { theme, label, onError, ...input } = options;
+    injectCheckoutButtonStyles();
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = checkoutButtonClass(theme);
+    const text = document.createElement('span');
+    text.textContent = label ?? 'Pay with Payluk';
+    button.innerHTML = PAYLUK_ICON_SVG + LOCK_ICON_SVG; // constant markup, never user input
+    button.append(text);
+
+    button.addEventListener('click', async () => {
+        if (button.getAttribute('aria-busy') === 'true') return;
+        button.setAttribute('aria-busy', 'true');
+        try {
+            await pay(input);
+        } catch (error) {
+            (onError ?? console.error)(normalizeError(error));
+        } finally {
+            button.removeAttribute('aria-busy');
+        }
+    });
+
+    host.appendChild(button);
+    return () => button.remove();
 }

@@ -177,6 +177,55 @@
   - Only use publishable keys in the browser. Keep any secret keys on your server.
   - Validate inputs on your backend and return the required session payload.
 
+  ## Pay with Payluk Button
+
+  A ready-made, branded button (Payluk icon, "Pay with Payluk", lock icon, purple or white theme, loading spinner) in the style of Stripe's payment buttons.
+
+  **React**
+
+  ```tsx
+  import { EscrowCheckoutButton } from 'payluk-escrow-inline-checkout/react';
+
+  <EscrowCheckoutButton
+    paymentToken="<PAYMENT_TOKEN>"
+    reference="<REFERENCE_ID>"
+    redirectUrl="https://your-app.example.com/checkout/complete"
+    theme="purple"          // or "white" for dark backgrounds
+    label="Pay with Payluk" // button text
+    callback={(result) => console.log(result)}
+  />
+  ```
+
+  Pass `children` to replace the whole content, or `className` to add your own styles on top of `.payluk-btn`.
+
+  **Vanilla JS/TS**
+
+  ```ts
+  import { initEscrowCheckout, mountCheckoutButton } from 'payluk-escrow-inline-checkout';
+
+  initEscrowCheckout({ publicKey: 'pk_live_...' });
+  const unmount = mountCheckoutButton('#payluk-button', {
+    paymentToken: '<PAYMENT_TOKEN>',
+    reference: '<REFERENCE_ID>',
+    redirectUrl: 'https://your-app.example.com/checkout/complete',
+    theme: 'white',
+    onError: (error) => console.error(error)
+  });
+  ```
+
+  **Plain HTML (no install)**
+
+  ```html
+  <script src="https://live.payluk.ng/v1/checkout/button.js" async></script>
+  <div data-payluk-button
+       data-public-key="pk_live_..."
+       data-payment-token="<PAYMENT_TOKEN>"
+       data-reference="<REFERENCE_ID>"
+       data-redirect-url="https://your-app.example.com/checkout/complete"></div>
+  ```
+
+  The element fires `payluk:success`, `payluk:close` and `payluk:error` events. Use `https://staging.live.payluk.ng/v1/checkout/button.js` with test keys.
+
   ## Multi-Escrow Payments
 
   `paymentToken` is always an array. Pass a single token to charge for one escrow or several tokens to charge for many in one session.

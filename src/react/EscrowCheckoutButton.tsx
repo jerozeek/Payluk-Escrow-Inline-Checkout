@@ -1,5 +1,12 @@
 import React, { useCallback } from 'react';
 import { useEscrowCheckout } from './useEscrowCheckout';
+import {
+    CHECKOUT_BUTTON_CSS,
+    checkoutButtonClass,
+    LOCK_ICON_PATH,
+    PAYLUK_ICON_PATH,
+    type CheckoutButtonTheme
+} from '../button';
 
 export interface EscrowCheckoutButtonProps {
     /**
@@ -8,7 +15,12 @@ export interface EscrowCheckoutButtonProps {
     paymentToken: string | string[];
     reference: string;
     redirectUrl: string;
+    /** Replaces the whole icon + text + lock content. */
     children?: React.ReactNode;
+    /** Button text after the Payluk icon and the lock. Default "Pay with Payluk". */
+    label?: string;
+    /** 'purple' (default) or 'white' for dark backgrounds. */
+    theme?: CheckoutButtonTheme;
     disabled?: boolean;
     className?: string;
     title?: string;
@@ -21,8 +33,25 @@ export interface EscrowCheckoutButtonProps {
     extra?: Record<string, unknown>;
 }
 
+export function PaylukIcon() {
+    return (
+        <svg className="payluk-icon" viewBox="0 0 34 42" fill="currentColor" aria-hidden="true">
+            <path d={PAYLUK_ICON_PATH} />
+        </svg>
+    );
+}
+
+export function LockIcon() {
+    return (
+        <svg className="payluk-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+             strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d={LOCK_ICON_PATH} />
+        </svg>
+    );
+}
+
 /**
- * Button that triggers pay(...) with your provided inputs.
+ * "Pay with Payluk" button that triggers pay(...) with your provided inputs.
  * The library handles both session creation and widget loading.
  */
 export function EscrowCheckoutButton({
@@ -34,7 +63,9 @@ export function EscrowCheckoutButton({
                                          callback,
                                          onClose,
                                          extra,
-                                         children = 'Pay',
+                                         children,
+                                         label = 'Pay with Payluk',
+                                         theme,
                                          disabled,
                                          className,
                                          title,
@@ -61,15 +92,25 @@ export function EscrowCheckoutButton({
     }, [pay, paymentToken, reference, redirectUrl, brand, logoUrl, callback, onClose, extra, customerId]);
 
     return (
-        <button
-            type="button"
-            onClick={handleClick}
-            disabled={disabled || loading}
-            className={className}
-            aria-disabled={disabled || loading}
-            title={title ?? (error ? error.message : undefined)}
-        >
-            {children}
-        </button>
+        <>
+            {/* Rendered rather than injected so server-rendered pages are styled on first paint. */}
+            <style>{CHECKOUT_BUTTON_CSS}</style>
+            <button
+                type="button"
+                onClick={handleClick}
+                disabled={disabled || loading}
+                className={checkoutButtonClass(theme, className)}
+                aria-busy={loading || undefined}
+                title={title ?? (error ? error.message : undefined)}
+            >
+                {children ?? (
+                    <>
+                        <PaylukIcon />
+                        <LockIcon />
+                        <span>{label}</span>
+                    </>
+                )}
+            </button>
+        </>
     );
 }
